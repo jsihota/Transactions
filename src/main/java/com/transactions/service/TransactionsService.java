@@ -1,8 +1,8 @@
 package com.transactions.service;
 
-import java.util.List;
+import com.transactions.model.UserTransaction;
 
 public interface TransactionsService {
-
+    UserTransaction getAllTransactions(int userId);
 
 }
