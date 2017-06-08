@@ -15,16 +15,17 @@ import java.util.List;
 @RestController
 public class TransactionsController {
     @Autowired
-	private TransactionsService wordService;
+	private TransactionsService transactionsService;
 
 
 
     @RequestMapping(value = "/transactions", method = RequestMethod.GET)
     public @ResponseBody
     UserTransaction allTransactions() {
-        TransactionClient transactionClient = new TransactionClient();
-        transactionClient.getTransactions(1110590645);
-        return new UserTransaction();
+        //TransactionClient transactionClient = new TransactionClient();
+        //transactionClient.getTransactions(1110590645);
+        //transactionsService.getAllTransactions(1110590645);
+        return transactionsService.getAllTransactions(1110590645);
 
 	}
     @RequestMapping(value = "/projectTransactionsForMonth", method = RequestMethod.GET)

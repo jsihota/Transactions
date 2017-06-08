@@ -4,13 +4,16 @@ package com.transactions.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Transaction {
     private String month;
-    private double spent;
-    private double income;
+    private double amount;
+    private String categorization;
+    private String rawMerchant;
+
 
     public String getMonth() {
         return month;
@@ -20,19 +23,29 @@ public class Transaction {
         this.month = month;
     }
 
-    public double getSpent() {
-        return spent;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setSpent(double spent) {
-        this.spent = spent;
+    public void setAmount(double spent) {
+        this.amount = spent;
+    }
+    public String getCategorization() {
+        return categorization;
     }
 
-    public double getIncome() {
-        return income;
+    public void setCategorization(String categorization) {
+        this.categorization = month;
     }
 
-    public void setIncome(double income) {
-        this.income = income;
+    public String getRawMerchant() {
+        return rawMerchant;
     }
+
+    public void setRawMerchant(String rawMerchant) {
+        this.rawMerchant = month;
+    }
+
+
+
 }
