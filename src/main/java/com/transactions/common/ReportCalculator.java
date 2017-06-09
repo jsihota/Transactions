@@ -6,10 +6,8 @@ import com.transactions.model.Transaction;
 import com.transactions.model.UserReport;
 import org.springframework.stereotype.Component;
 
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Component
 public class ReportCalculator {
@@ -21,7 +19,7 @@ public class ReportCalculator {
         int spentCount  = 0;
         for(Transaction transaction: transactions){
             String category = transaction.getCategorization().toLowerCase();
-            String month = transaction.getMonth();
+            String month = getYearMonthOnly(transaction.getMonth());
             double amount = transaction.getAmount();
 
             switch (category) {
@@ -72,5 +70,18 @@ public class ReportCalculator {
         entry.setIncome(income/incomeCount);
         averageEntry.put("Average",entry);
         return averageEntry;
+    }
+    //TODO Fix this 
+    private String getYearMonthOnly(String time){
+        String yearMonth = null;
+        try{
+            String[] temp = time.split("-");
+            yearMonth = temp[0] + "-" + temp[1];
+
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return yearMonth;
     }
 }
