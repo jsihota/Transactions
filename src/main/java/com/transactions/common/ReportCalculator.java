@@ -69,7 +69,7 @@ public class ReportCalculator {
         System.out.println(spentCount);
         return averageEntry;
     }
-    //TODO Fix this
+    
     private String getYearMonthOnly(String time){
         String yearMonth = null;
         try{
