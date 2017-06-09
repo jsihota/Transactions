@@ -1,8 +1,8 @@
 package com.transactions.service;
 
-import com.transactions.model.UserTransaction;
+import com.transactions.model.UserReport;
 
 public interface TransactionsService {
-    UserTransaction getAllTransactions(int userId);
+    UserReport getAllTransactions(int userId);
 
 }

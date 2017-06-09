@@ -1,7 +1,6 @@
 package com.transactions.controller;
 
-import com.transactions.common.TransactionClient;
-import com.transactions.model.UserTransaction;
+import com.transactions.model.UserReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,10 +20,7 @@ public class TransactionsController {
 
     @RequestMapping(value = "/transactions", method = RequestMethod.GET)
     public @ResponseBody
-    UserTransaction allTransactions() {
-        //TransactionClient transactionClient = new TransactionClient();
-        //transactionClient.getTransactions(1110590645);
-        //transactionsService.getAllTransactions(1110590645);
+    UserReport allTransactions() {
         return transactionsService.getAllTransactions(1110590645);
 
 	}

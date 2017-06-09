@@ -1,32 +1,34 @@
 package com.transactions.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
-import java.util.regex.Pattern;
 
+import com.transactions.common.ReportCalculator;
 import com.transactions.common.TransactionClient;
+import com.transactions.model.Report;
 import com.transactions.model.Transaction;
-import com.transactions.model.UserTransaction;
+import com.transactions.model.UserReport;
 import org.springframework.stereotype.Service;
 
 @Service("TransactionsService")
 public class TransactionsServiceImpl implements TransactionsService {
 
     private TransactionClient transactionClient;
+    private ReportCalculator reportCalculator;
 
-	public TransactionsServiceImpl(TransactionClient transactionClient)
+	public TransactionsServiceImpl(TransactionClient transactionClient, ReportCalculator reportCalculator)
     {
         this.transactionClient = transactionClient;
+        this.reportCalculator = reportCalculator;
     }
-    public UserTransaction getAllTransactions(int userId){
+    public UserReport getAllTransactions(int userId){
         List<Transaction> transactions = transactionClient.getTransactions(userId);
-        UserTransaction userTransaction = new UserTransaction();
-        userTransaction.setAverage(33333.44);
-        userTransaction.setId(111111);
-        userTransaction.setTransactions(transactions);
+        Report report = reportCalculator.calculate(transactions);
 
-        return userTransaction;
+        UserReport userReport = new UserReport();
+        userReport.setId(userId);
+        userReport.setReport(report);
+
+        return userReport;
     }
 
 

@@ -35,7 +35,7 @@ public class Transaction {
     }
 
     public void setCategorization(String categorization) {
-        this.categorization = month;
+        this.categorization = categorization;
     }
 
     public String getRawMerchant() {
@@ -43,7 +43,7 @@ public class Transaction {
     }
 
     public void setRawMerchant(String rawMerchant) {
-        this.rawMerchant = month;
+        this.rawMerchant = rawMerchant;
     }
 
 
