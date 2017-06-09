@@ -22,23 +22,19 @@ public class ReportCalculator {
             String month = getYearMonthOnly(transaction.getMonth());
             double amount = transaction.getAmount();
 
-            switch (category) {
-                case "Paycheck":
-                    income = income +
-                    incomeCount ++;
-                    if(lineItems.containsKey(month)){
-                        Entries entries = lineItems.get(month);
-                        entries.setIncome(entries.getIncome() + amount);
-                        lineItems.put(month, entries);
-                    }
-                    else{
-                        Entries entries = new Entries();
-                        entries.setIncome(amount);
-                        lineItems.put(month, entries);
-                    }
-                    break;
-
-                default:
+            if (category.equals("paycheck")) {
+                income = income +
+                        incomeCount++;
+                if (lineItems.containsKey(month)) {
+                    Entries entries = lineItems.get(month);
+                    entries.setIncome(entries.getIncome() + amount);
+                    lineItems.put(month, entries);
+                } else {
+                    Entries entries = new Entries();
+                    entries.setIncome(amount);
+                    lineItems.put(month, entries);
+                }
+            }else{
                     spent = spent + amount;
                     spentCount++;
                     if(lineItems.containsKey(month)){
@@ -51,7 +47,7 @@ public class ReportCalculator {
                         entries.setSpent(amount);
                         lineItems.put(month, entries);
                     }
-                    break;
+
             }
         }
         Report report = new Report();
@@ -66,12 +62,14 @@ public class ReportCalculator {
             int spentCount){
         HashMap<String,Entries> averageEntry = new HashMap<String,Entries>();
         Entries entry = new Entries();
-        entry.setIncome(spent/spentCount);
+        entry.setSpent(spent/spentCount);
         entry.setIncome(income/incomeCount);
         averageEntry.put("Average",entry);
+        System.out.println(incomeCount);
+        System.out.println(spentCount);
         return averageEntry;
     }
-    //TODO Fix this 
+    //TODO Fix this
     private String getYearMonthOnly(String time){
         String yearMonth = null;
         try{
