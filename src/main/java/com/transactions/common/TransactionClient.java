@@ -19,7 +19,7 @@ import java.util.*;
 @Component
 public class TransactionClient {
 
-    public List<Transaction> getTransactions(int userId){
+    public String getTransactions(int userId){
 
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://2016.api.levelmoney.com/api/v2/core/get-all-transactions";
@@ -43,26 +43,9 @@ public class TransactionClient {
 
 
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
-        return map(response.getBody());
+        return response.getBody();
     }
 
-    private List<Transaction> map(String responseBody){
-        List<Transaction> transactions = new ArrayList<>();
-        JSONObject json = new JSONObject(responseBody);
-        JSONArray transaction = json.getJSONArray("transactions");
 
-        for(int i = 0; i < transaction.length(); i++)
-        {
-            Transaction temptTransaction = new Transaction();
-            JSONObject objects = transaction.getJSONObject(i);
-            temptTransaction.setAmount(objects.getDouble("amount"));
-            temptTransaction.setMonth(objects.getString("transaction-time"));
-            temptTransaction.setCategorization(objects.getString("categorization"));
-            temptTransaction.setRawMerchant(objects.getString("raw-merchant"));
-            transactions.add(temptTransaction);
-        }
-
-        return transactions;
-    }
 
 }
