@@ -1,5 +1,6 @@
 package com.transactions.controller;
 
+import com.transactions.common.TransactionClient;
 import com.transactions.model.UserReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,10 @@ public class TransactionsController {
 	}
     @RequestMapping(value = "/projectForMonth", method = RequestMethod.GET)
     public List<String> projectedForMonth() {
+        TransactionClient tc = new TransactionClient();
+        String projectedTransactionsForMonth = tc.getProjectedTransactionsForMonth(1110590645, 2017, 6);
+        //System.out.println(projectedTransactionsForMonth);
+
         return new ArrayList<>();
 
     }
