@@ -25,15 +25,13 @@ public class TransactionsServiceImpl implements TransactionsService {
         this.reportCalculator = reportCalculator;
         this.transactionMapper = transactionMapper;
     }
-    public UserReport getAllTransactions(int userId){
+    public UserReport getAllTransactions(int userId,String ignore){
         String response =  transactionClient.getTransactions(userId);
-        List<Transaction> transactions = transactionMapper.map(response);
+        List<Transaction> transactions = transactionMapper.map(response,ignore);
         Report report = reportCalculator.calculate(transactions);
-
         UserReport userReport = new UserReport();
         userReport.setId(userId);
         userReport.setReport(report);
-
         return userReport;
     }
 

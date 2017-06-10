@@ -2,10 +2,7 @@ package com.transactions.controller;
 
 import com.transactions.model.UserReport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.transactions.service.TransactionsService;
 
 import java.util.ArrayList;
@@ -20,9 +17,9 @@ public class TransactionsController {
 
     @RequestMapping(value = "/transactions", method = RequestMethod.GET)
     public @ResponseBody
-    UserReport allTransactions() {
-        return transactionsService.getAllTransactions(1110590645);
-
+    UserReport allTransactions(@RequestParam(value= "ignore", defaultValue= "",required = false) final String ignore)  {
+        System.out.println(ignore);
+        return transactionsService.getAllTransactions(1110590645,ignore);
 	}
     @RequestMapping(value = "/projectTransactionsForMonth", method = RequestMethod.GET)
     public List<String> projectedTransactionsForMonth() {

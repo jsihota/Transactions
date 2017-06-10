@@ -1,18 +1,11 @@
 package com.transactions.model;
 
-
-import java.io.Serializable;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.DateSerializer;
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Transaction {
     private String month;
     private double amount;
     private String categorization;
     private String rawMerchant;
+    private TransactionAction transactionAction;
 
 
     public String getMonth() {
@@ -47,5 +40,11 @@ public class Transaction {
     }
 
 
+    public TransactionAction getTransactionAction() {
+        return transactionAction;
+    }
 
+    public void setTransactionAction(TransactionAction transactionAction) {
+        this.transactionAction = transactionAction;
+    }
 }

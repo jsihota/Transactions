@@ -28,7 +28,6 @@ public class TransactionClient {
         map.put("Content-Type", "application/json");
         map.put("Accept", "application/json");
         headers.setAll(map);
-
         Map req_payload = new HashMap();
         req_payload.put("uid", userId);
         req_payload.put("token", "E4EA0E53CC28E6B22A359E971E87C742");
@@ -38,10 +37,7 @@ public class TransactionClient {
 
         Map req_payload_two = new HashMap();
         req_payload_two.put("args",req_payload);
-
         HttpEntity<?> request = new HttpEntity<>(req_payload_two, headers);
-
-
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
         return response.getBody();
     }
