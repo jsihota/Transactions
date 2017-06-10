@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Report {
     private HashMap<String,Entries> lineItem;
-    private HashMap<String,Entries> average;
+    private Entries average;
 
     public HashMap<String, Entries> getLineItem() {
         return lineItem;
@@ -15,11 +15,11 @@ public class Report {
         this.lineItem = lineItem;
     }
 
-    public HashMap<String, Entries> getAverage() {
+    public  Entries getAverage() {
         return average;
     }
 
-    public void setAverage(HashMap<String, Entries> average) {
+    public void setAverage( Entries average) {
         this.average = average;
     }
 }

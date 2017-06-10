@@ -23,7 +23,7 @@ public class ReportCalculator {
             double amount = transaction.getAmount();
 
             if (category.equals("paycheck")) {
-                income = income +
+                income = income + amount;
                         incomeCount++;
                 if (lineItems.containsKey(month)) {
                     Entries entries = lineItems.get(month);
@@ -32,6 +32,7 @@ public class ReportCalculator {
                 } else {
                     Entries entries = new Entries();
                     entries.setIncome(amount);
+                    entries.setSpent(0.0);
                     lineItems.put(month, entries);
                 }
             }else{
@@ -45,6 +46,7 @@ public class ReportCalculator {
                     else{
                         Entries entries = new Entries();
                         entries.setSpent(amount);
+                        entries.setIncome(0.0);
                         lineItems.put(month, entries);
                     }
 
@@ -56,26 +58,29 @@ public class ReportCalculator {
         return report;
     }
 
-    private HashMap<String,Entries> GetAverageEntry(double spent,
-            double income,
-            int incomeCount,
-            int spentCount){
-        HashMap<String,Entries> averageEntry = new HashMap<String,Entries>();
+    private Entries GetAverageEntry(double spent,
+                    double income,
+                    int incomeCount,
+                    int spentCount){
         Entries entry = new Entries();
-        entry.setSpent(spent/spentCount);
-        entry.setIncome(income/incomeCount);
-        averageEntry.put("Average",entry);
-        System.out.println(incomeCount);
-        System.out.println(spentCount);
-        return averageEntry;
+        if(spentCount == 0){
+            entry.setSpent(0.0);
+        }else{
+            entry.setSpent(spent/spentCount);
+        }
+        if (incomeCount == 0) {
+            entry.setIncome(0.0);
+        }else {
+            entry.setIncome(income / incomeCount);
+        }
+        return entry;
     }
-    
+
     private String getYearMonthOnly(String time){
         String yearMonth = null;
         try{
             String[] temp = time.split("-");
             yearMonth = temp[0] + "-" + temp[1];
-
         }
         catch (Exception ex){
             System.out.println(ex.getMessage());
