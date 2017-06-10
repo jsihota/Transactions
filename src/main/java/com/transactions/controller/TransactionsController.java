@@ -15,14 +15,13 @@ public class TransactionsController {
 
 
 
-    @RequestMapping(value = "/transactions", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public @ResponseBody
-    UserReport allTransactions(@RequestParam(value= "ignore", defaultValue= "",required = false) final String ignore)  {
-        System.out.println(ignore);
+    UserReport all(@RequestParam(value= "ignore", defaultValue= "",required = false) final String ignore)  {
         return transactionsService.getAllTransactions(1110590645,ignore);
 	}
-    @RequestMapping(value = "/projectTransactionsForMonth", method = RequestMethod.GET)
-    public List<String> projectedTransactionsForMonth() {
+    @RequestMapping(value = "/projectForMonth", method = RequestMethod.GET)
+    public List<String> projectedForMonth() {
         return new ArrayList<>();
 
     }

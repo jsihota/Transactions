@@ -19,6 +19,7 @@ import java.util.*;
 @Component
 public class TransactionClient {
 
+    //TODO move service setup in consturstor and keys to config
     public String getTransactions(int userId){
 
         RestTemplate restTemplate = new RestTemplate();
