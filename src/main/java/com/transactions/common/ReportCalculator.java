@@ -8,7 +8,7 @@ import java.util.*;
 
 @Component
 public class ReportCalculator {
-    //TODO Clean this up
+
     public Report calculate(List<Transaction> transactions){
         HashMap<String,Entries> lineItems = new HashMap<>();
         HashMap<String,Entries> ignoredLineItems = new HashMap<>();
@@ -20,63 +20,30 @@ public class ReportCalculator {
             String category = transaction.getCategorization().toLowerCase();
             String month = transaction.getMonth();
             double amount = transaction.getAmount();
-
+            //TODO Move paycheck to config
             if (category.equals("paycheck")) {
                 if(transaction.getTransactionAction() == TransactionAction.ADDED) {
                     income = income + amount;
                     incomeCount++;
-                    if (lineItems.containsKey(month)) {
-                        Entries entries = lineItems.get(month);
-                        entries.setIncome(entries.getIncome() + amount);
-                        lineItems.put(month, entries);
-                    } else {
-                        Entries entries = new Entries();
-                        entries.setIncome(amount);
-                        entries.setSpent(0.0);
-                        lineItems.put(month, entries);
-                    }
-                } else{
-                    if (ignoredLineItems.containsKey(month)) {
-                        Entries entries = ignoredLineItems.get(month);
-                        entries.setIncome(entries.getIncome() + amount);
-                        ignoredLineItems.put(month, entries);
-                    } else {
-                        Entries entries = new Entries();
-                        entries.setIncome(amount);
-                        entries.setSpent(0.0);
-                        ignoredLineItems.put(month, entries);
-                    }
+                    updateIncomeItem(lineItems,month,amount);
 
+                } else{
+                    updateIncomeItem(ignoredLineItems,month,amount);
                 }
             }else{
                     if(transaction.getTransactionAction() == TransactionAction.ADDED) {
                         spent = spent + amount;
                         spentCount++;
-                        if (lineItems.containsKey(month)) {
-                            Entries entries = lineItems.get(month);
-                            entries.setSpent(entries.getSpent() + amount);
-                            lineItems.put(month, entries);
-                        } else {
-                            Entries entries = new Entries();
-                            entries.setSpent(amount);
-                            entries.setIncome(0.0);
-                            lineItems.put(month, entries);
-                        }
+                        updateSpentItem(lineItems,month,amount);
                     }else{
-                        if (ignoredLineItems.containsKey(month)) {
-                            Entries entries = ignoredLineItems.get(month);
-                            entries.setSpent(entries.getSpent() + amount);
-                            ignoredLineItems.put(month, entries);
-                        } else {
-                            Entries entries = new Entries();
-                            entries.setSpent(amount);
-                            entries.setIncome(0.0);
-                            ignoredLineItems.put(month, entries);
-                        }
-
+                        updateSpentItem(ignoredLineItems,month,amount);
                     }
             }
         }
+        return getReport(lineItems, ignoredLineItems, spent, income, incomeCount, spentCount);
+    }
+
+    private Report getReport(HashMap<String, Entries> lineItems, HashMap<String, Entries> ignoredLineItems, double spent, double income, int incomeCount, int spentCount) {
         Report report = new Report();
         report.setLineItem(lineItems);
         report.setIgnoredLineItem(ignoredLineItems);
@@ -84,6 +51,30 @@ public class ReportCalculator {
         return report;
     }
 
+    private void updateIncomeItem(HashMap<String,Entries> currentItems,String month,double amount ){
+        if (currentItems.containsKey(month)) {
+            Entries entries = currentItems.get(month);
+            entries.setIncome(entries.getIncome() + amount);
+            currentItems.put(month, entries);
+        } else {
+            Entries entries = new Entries();
+            entries.setIncome(amount);
+            entries.setSpent(0.0);
+            currentItems.put(month, entries);
+        }
+    }
+    private void updateSpentItem(HashMap<String,Entries> currentItems,String month,double amount ){
+        if (currentItems.containsKey(month)) {
+            Entries entries = currentItems.get(month);
+            entries.setSpent(entries.getSpent() + amount);
+            currentItems.put(month, entries);
+        } else {
+            Entries entries = new Entries();
+            entries.setSpent(amount);
+            entries.setIncome(0.0);
+            currentItems.put(month, entries);
+        }
+    }
     private Entries GetAverageEntry(double spent,
                     double income,
                     int incomeCount,
