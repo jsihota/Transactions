@@ -26,8 +26,8 @@ public class WithOnlyIncomeTest {
     public void testAverageTest() {
         Entries average = report.getAverage();
         Assert.assertNotNull(average);
-        Assert.assertEquals(505.00,average.getIncome(),0.0);
-        Assert.assertEquals(0.00,average.getSpent(),0.0);
+        Assert.assertEquals("$505.00",average.getIncome());
+        Assert.assertEquals("$0.00",average.getSpent());
     }
     @Test
     public void testLineItemsTest() {
@@ -35,8 +35,8 @@ public class WithOnlyIncomeTest {
         Assert.assertNotNull(lineItems);
         Entries entries = lineItems.get("2015-11");
         Assert.assertNotNull(entries);
-        Assert.assertEquals(0.0,entries.getSpent(),0.0);
-        Assert.assertEquals(1010.0,entries.getIncome(),0.0);
+        Assert.assertEquals("$0.00",entries.getSpent());
+        Assert.assertEquals("$1,010.00",entries.getIncome());
     }
 
     private  List<Transaction>  bothTransactions(){

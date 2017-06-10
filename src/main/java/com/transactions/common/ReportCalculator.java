@@ -4,6 +4,11 @@ import com.transactions.model.Report;
 import com.transactions.model.Transaction;
 import com.transactions.model.TransactionAction;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.*;
 
 @Component
@@ -31,6 +36,7 @@ public class ReportCalculator {
                     updateIncomeItem(ignoredLineItems,month,amount);
                 }
             }else{
+                    amount = (-1) * amount;
                     if(transaction.getTransactionAction() == TransactionAction.ADDED) {
                         spent = spent + amount;
                         spentCount++;
@@ -43,7 +49,8 @@ public class ReportCalculator {
         return getReport(lineItems, ignoredLineItems, spent, income, incomeCount, spentCount);
     }
 
-    private Report getReport(HashMap<String, Entries> lineItems, HashMap<String, Entries> ignoredLineItems, double spent, double income, int incomeCount, int spentCount) {
+    private Report getReport(HashMap<String, Entries> lineItems, HashMap<String, Entries> ignoredLineItems, double spent
+            , double income, int incomeCount, int spentCount) {
         Report report = new Report();
         report.setLineItem(lineItems);
         report.setIgnoredLineItem(ignoredLineItems);
@@ -54,41 +61,53 @@ public class ReportCalculator {
     private void updateIncomeItem(HashMap<String,Entries> currentItems,String month,double amount ){
         if (currentItems.containsKey(month)) {
             Entries entries = currentItems.get(month);
-            entries.setIncome(entries.getIncome() + amount);
+            double current = parseCurrency(entries.getIncome()) + amount;
+            entries.setIncome(mapToCurrency(current));
             currentItems.put(month, entries);
         } else {
             Entries entries = new Entries();
-            entries.setIncome(amount);
-            entries.setSpent(0.0);
+            entries.setIncome(mapToCurrency(amount));
+            entries.setSpent(mapToCurrency(0.0));
             currentItems.put(month, entries);
         }
+    }
+    private static double parseCurrency(String amount) {
+
+        amount = amount.replaceAll("[^\\d.]+", "");
+        return  Double.parseDouble(amount);
     }
     private void updateSpentItem(HashMap<String,Entries> currentItems,String month,double amount ){
         if (currentItems.containsKey(month)) {
             Entries entries = currentItems.get(month);
-            entries.setSpent(entries.getSpent() + amount);
+            Double current =  parseCurrency(entries.getSpent()) + amount;
+            entries.setSpent(mapToCurrency(current));
             currentItems.put(month, entries);
         } else {
             Entries entries = new Entries();
-            entries.setSpent(amount);
-            entries.setIncome(0.0);
+            entries.setSpent(mapToCurrency(amount));
+            entries.setIncome(mapToCurrency(0.0));
             currentItems.put(month, entries);
         }
     }
+    private String mapToCurrency(double amount){
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        return formatter.format(amount);
+    }
+
     private Entries GetAverageEntry(double spent,
                     double income,
                     int incomeCount,
                     int spentCount){
         Entries entry = new Entries();
         if(spentCount == 0){
-            entry.setSpent(0.0);
+            entry.setSpent(mapToCurrency(0.0));
         }else{
-            entry.setSpent(spent/spentCount);
+            entry.setSpent(mapToCurrency(spent/spentCount));
         }
         if (incomeCount == 0) {
-            entry.setIncome(0.0);
+            entry.setIncome(mapToCurrency(0.0));
         }else {
-            entry.setIncome(income / incomeCount);
+            entry.setIncome(mapToCurrency(income / incomeCount));
         }
         return entry;
     }

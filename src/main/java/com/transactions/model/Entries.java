@@ -1,22 +1,22 @@
 package com.transactions.model;
 
 public class Entries{
-    private double spent;
-    private double income;
+    private String spent;
+    private String  income;
 
-    public double getSpent() {
+    public String getSpent() {
         return spent;
     }
 
-    public void setSpent(double spent) {
+    public void setSpent(String spent) {
         this.spent = spent;
     }
 
-    public double getIncome() {
+    public String getIncome() {
         return income;
     }
 
-    public void setIncome(double income) {
+    public void setIncome(String income) {
         this.income = income;
     }
 }

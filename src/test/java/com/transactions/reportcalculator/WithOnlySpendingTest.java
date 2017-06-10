@@ -26,8 +26,8 @@ public class WithOnlySpendingTest {
     public void testAverageTest() {
         Entries average = report.getAverage();
         Assert.assertNotNull(average);
-        Assert.assertEquals(0.0,average.getIncome(),0.0);
-        Assert.assertEquals(200.0,average.getSpent(),0.0);
+        Assert.assertEquals("$0.00",average.getIncome());
+        Assert.assertEquals("$200.00",average.getSpent());
     }
     @Test
     public void testLineItemsTest() {
@@ -35,8 +35,8 @@ public class WithOnlySpendingTest {
         Assert.assertNotNull(lineItems);
         Entries entries = lineItems.get("2015-11");
         Assert.assertNotNull(entries);
-        Assert.assertEquals(400.0,entries.getSpent(),0.0);
-        Assert.assertEquals(0.0,entries.getIncome(),0.0);
+        Assert.assertEquals("$400.00",entries.getSpent());
+        Assert.assertEquals("$0.00",entries.getIncome());
     }
     @Test
     public void testIgnoredItemsTest() {
@@ -44,32 +44,32 @@ public class WithOnlySpendingTest {
         Assert.assertNotNull(ignoredLineItems);
         Entries entries = ignoredLineItems.get("2015-11");
         Assert.assertNotNull(entries);
-        Assert.assertEquals(3300.0,entries.getSpent(),0.0);
-        Assert.assertEquals(0.0,entries.getIncome(),0.0);
+        Assert.assertEquals("$3,300.00",entries.getSpent());
+        Assert.assertEquals("$0.00",entries.getIncome());
     }
 
     private  List<Transaction>  bothTransactions(){
         List<Transaction> anyTransactions  = new ArrayList<>();
         Transaction spendingOne = new Transaction();
-        spendingOne.setAmount(100.00);
+        spendingOne.setAmount(-100.00);
         spendingOne.setCategorization("any");
         spendingOne.setRawMerchant("any");
         spendingOne.setMonth("2015-11");
         spendingOne.setTransactionAction(TransactionAction.ADDED);
         Transaction spendingTwo = new Transaction();
-        spendingTwo.setAmount(300.00);
+        spendingTwo.setAmount(-300.00);
         spendingTwo.setCategorization("any");
         spendingTwo.setRawMerchant("any");
         spendingTwo.setMonth("2015-11");
         spendingTwo.setTransactionAction(TransactionAction.ADDED);
         Transaction ignoredSpending = new Transaction();
-        ignoredSpending.setAmount(300.00);
+        ignoredSpending.setAmount(-300.00);
         ignoredSpending.setCategorization("any");
         ignoredSpending.setRawMerchant("any");
         ignoredSpending.setMonth("2015-11");
         ignoredSpending.setTransactionAction(TransactionAction.IGNORED);
         Transaction ignoredSpendingTwo = new Transaction();
-        ignoredSpendingTwo.setAmount(3000.00);
+        ignoredSpendingTwo.setAmount(-3000.00);
         ignoredSpendingTwo.setCategorization("any");
         ignoredSpendingTwo.setRawMerchant("any");
         ignoredSpendingTwo.setMonth("2015-11");

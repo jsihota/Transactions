@@ -26,7 +26,7 @@ public class TransactionMapper {
                 String categorization = objects.getString("categorization").toLowerCase();
                 String rawMerchant = objects.getString("raw-merchant").toLowerCase();
                 Transaction temptTransaction = new Transaction();
-                temptTransaction.setAmount(objects.getDouble("amount"));
+                temptTransaction.setAmount(mapCentocentsToDollars(objects.getDouble("amount")));
                 temptTransaction.setMonth(getYearMonthOnly(objects.getString("transaction-time")));
                 temptTransaction.setCategorization(categorization);
                 temptTransaction.setRawMerchant(rawMerchant);
@@ -52,5 +52,9 @@ public class TransactionMapper {
             System.out.println(ex.getMessage());
         }
         return yearMonth;
+    }
+
+    private double mapCentocentsToDollars(double amount){
+        return amount/10000.00;
     }
 }
