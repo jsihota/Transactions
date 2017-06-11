@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 public class ConfigProperties {
     @Value("${userId}")
     private int userId;
-    
+
     public int getUserId() {
         return userId;
     }

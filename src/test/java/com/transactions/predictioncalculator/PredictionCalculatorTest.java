@@ -37,7 +37,7 @@ public class PredictionCalculatorTest {
     public void testPredictedSpending() {
         Entries average = report.getAverage();
         Assert.assertNotNull(average);
-        Assert.assertEquals("$233.33", average.getSpending());
+        Assert.assertEquals("$433.33", average.getSpending());
     }
 
     @Test
@@ -66,25 +66,25 @@ public class PredictionCalculatorTest {
         spendingOne.setAmount(-100.00);
         spendingOne.setCategorization("any");
         spendingOne.setRawMerchant("any");
-        spendingOne.setMonth("2015-11");
+        spendingOne.setMonth("2013-06");
         spendingOne.setTransactionAction(TransactionAction.ADDED);
         Transaction spendingTwo = new Transaction();
         spendingTwo.setAmount(-300.00);
         spendingTwo.setCategorization("any");
         spendingTwo.setRawMerchant("any");
-        spendingTwo.setMonth("2015-11");
+        spendingTwo.setMonth("2015-06");
         spendingTwo.setTransactionAction(TransactionAction.ADDED);
         Transaction ignoredSpending = new Transaction();
         ignoredSpending.setAmount(-300.00);
         ignoredSpending.setCategorization("any");
         ignoredSpending.setRawMerchant("any");
-        ignoredSpending.setMonth("2015-11");
+        ignoredSpending.setMonth("2015-06");
         ignoredSpending.setTransactionAction(TransactionAction.IGNORED);
         Transaction ignoredSpendingTwo = new Transaction();
         ignoredSpendingTwo.setAmount(-3000.00);
         ignoredSpendingTwo.setCategorization("any");
         ignoredSpendingTwo.setRawMerchant("any");
-        ignoredSpendingTwo.setMonth("2015-11");
+        ignoredSpendingTwo.setMonth("2015-06");
         ignoredSpendingTwo.setTransactionAction(TransactionAction.IGNORED);
         anyTransactions.add(spendingOne);
         anyTransactions.add(spendingTwo);
