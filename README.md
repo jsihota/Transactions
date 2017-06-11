@@ -30,7 +30,7 @@ I implement restful api call using java and spring boot
         *  average           -> Average  
    
    
-2.predictNextMonth call 
+2. predictNextMonth call 
   * average: 
       * spending              -> predicated spending 
       * income                -> predicated income 
