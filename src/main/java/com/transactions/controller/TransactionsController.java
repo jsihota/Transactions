@@ -1,6 +1,7 @@
 package com.transactions.controller;
 
 import com.transactions.common.TransactionClient;
+import com.transactions.model.ConfigProperties;
 import com.transactions.model.PredictedReport;
 import com.transactions.model.UserReport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,19 @@ import java.util.List;
 public class TransactionsController {
     @Autowired
 	private TransactionsService transactionsService;
-
+    @Autowired
+    private ConfigProperties configProperties;
 
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public @ResponseBody
     UserReport all(@RequestParam(value= "ignore", defaultValue= "",required = false) final String ignore)  {
-        return transactionsService.getAllTransactions(1110590645,ignore);
+        return transactionsService.getAllTransactions(configProperties.getUserId(),ignore);
 	}
     @RequestMapping(value = "/predictRestOfTheMonth", method = RequestMethod.GET)
     public PredictedReport predictRestOfMonth() {
 
-        return transactionsService.predictRestOfTheMonth(1110590645);
+        return transactionsService.predictRestOfTheMonth(configProperties.getUserId());
 
     }
 
