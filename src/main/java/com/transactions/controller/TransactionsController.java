@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.transactions.service.TransactionsService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,8 @@ public class TransactionsController {
 	}
     @RequestMapping(value = "/predictRestOfTheMonth", method = RequestMethod.GET)
     public PredictedReport predictRestOfMonth() {
-        return transactionsService.predictRestOfTheMonth(1110590645, 6, 2017);
+
+        return transactionsService.predictRestOfTheMonth(1110590645);
 
     }
 

@@ -32,7 +32,7 @@ public class TransactionMapper {
                 temptTransaction.setRawMerchant(rawMerchant);
                 temptTransaction.setTransactionAction(TransactionAction.ADDED);
                 if(ignoreFlag && (categorization.contains(ignore) || rawMerchant.contains(ignore))){
-                    System.out.println("Ignored: " + categorization + " " + rawMerchant);
+                    //System.out.println("Ignored: " + categorization + " " + rawMerchant);
                     temptTransaction.setTransactionAction(TransactionAction.IGNORED);
                 }
                 transactions.add(temptTransaction);

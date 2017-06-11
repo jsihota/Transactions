@@ -1,5 +1,6 @@
 package com.transactions.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import com.transactions.common.PredictionCalculator;
@@ -39,20 +40,18 @@ public class TransactionsServiceImpl implements TransactionsService {
         userReport.setReport(report);
         return userReport;
     }
-    public PredictedReport predictRestOfTheMonth(int userId,int month,int year){
+    public PredictedReport predictRestOfTheMonth(int userId){
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 1);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
         String response =  transactionClient.getTransactions(userId);
         List<Transaction> transactions = transactionMapper.map(response,"");
         Report report = reportCalculator.calculate(transactions);
-        response =  transactionClient.getProjectedTransactionsForMonth(userId,month,year);
+        response =  transactionClient.getProjectedTransactionsForMonth(userId,year,month);
         List<Transaction> predictedTransactions = transactionMapper.map(response,"");
         Report predictedReport = reportCalculator.calculate(predictedTransactions);
-        PredictedReport predict = predictionCalculator.predict(report, predictedReport, month);
-        predict.setYear(year);
-        predict.setId(userId);
-        return predict;
-
-
-
+        return predictionCalculator.predict(report, predictedReport, month,year,userId);
     }
 
 

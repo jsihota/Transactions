@@ -1,9 +1,9 @@
-package com.transactions.common;
+package com.transactions.utility;
 
 
 import java.text.NumberFormat;
 
-public class CurrencyUtility {
+public class Currency {
     public static double parseCurrency(String amount) {
         amount = amount.replaceAll("[^\\d.]+", "");
         return  Double.parseDouble(amount);

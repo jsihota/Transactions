@@ -62,13 +62,10 @@ public class TransactionClient {
         headers.setAll(map);
         Map req_payload = new HashMap();
         req_payload.put("uid", userId);
-        //req_payload.put("year", year);
-        //req_payload.put("month", month);
         req_payload.put("token", "FB3AE6B3B3152E8992B2690EC3ECCFC2");
         req_payload.put("api-token", "AppTokenForInterview");
         req_payload.put("json-strict-mode", false);
         req_payload.put("json-verbose-response", false);
-
         Map req_payload_two = new HashMap();
         req_payload_two.put("args",req_payload);
         req_payload_two.put("year",year);
