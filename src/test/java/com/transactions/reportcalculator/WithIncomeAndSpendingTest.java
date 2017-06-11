@@ -27,7 +27,7 @@ public class WithIncomeAndSpendingTest {
         Entries average = report.getAverage();
         Assert.assertNotNull(average);
         Assert.assertEquals("$505.00",average.getIncome());
-        Assert.assertEquals("$200.00",average.getSpent());
+        Assert.assertEquals("$200.00",average.getSpending());
     }
     @Test
     public void testLineItemsTest() {
@@ -35,7 +35,7 @@ public class WithIncomeAndSpendingTest {
         Assert.assertNotNull(lineItems);
         Entries entries = lineItems.get("2015-11");
         Assert.assertNotNull(entries);
-        Assert.assertEquals("$400.00",entries.getSpent());
+        Assert.assertEquals("$400.00",entries.getSpending());
         Assert.assertEquals("$1,010.00",entries.getIncome());
     }
     @Test
@@ -44,7 +44,7 @@ public class WithIncomeAndSpendingTest {
         Assert.assertNotNull(ignoredLineItems);
         Entries entries = ignoredLineItems.get("2015-11");
         Assert.assertNotNull(entries);
-        Assert.assertEquals("$300.00",entries.getSpent());
+        Assert.assertEquals("$300.00",entries.getSpending());
         Assert.assertEquals("$0.00",entries.getIncome());
     }
 
