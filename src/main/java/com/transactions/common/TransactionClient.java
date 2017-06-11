@@ -32,7 +32,6 @@ public class TransactionClient {
         String url = "https://2016.api.levelmoney.com/api/v2/core/projected-transactions-for-month";
         ResponseEntity<String> response = restTemplate.postForEntity(url,
                 getProjectedTransactionsForMonthRequest(userId,year,month), String.class);
-        System.out.print(response);
         return response.getBody();
     }
 

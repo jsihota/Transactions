@@ -18,8 +18,17 @@ I implement restful api call using java and spring boot
    * call http://localhost:8080/all?ignore=donuts
 3. GetAllTransactions ignore cc-payments 
    * call http://localhost:8080/all?ignore=payment
-4. crystal-ball
-   * call http://localhost:8080/predictRestOfTheMonth
+
+   * Response for above calls 
+    * id -> user id 
+    * report
+        * * lineItem         -> line items 
+        * * ignoredLineItem: -> ignore transactions 
+        * * average          -> Average  
+   
+   
+1. crystal-ball
+   * call http://localhost:8080/predictNextMonth
 
 
 

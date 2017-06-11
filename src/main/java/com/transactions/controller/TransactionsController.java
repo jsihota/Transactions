@@ -25,11 +25,9 @@ public class TransactionsController {
     UserReport all(@RequestParam(value= "ignore", defaultValue= "",required = false) final String ignore)  {
         return transactionsService.getAllTransactions(configProperties.getUserId(),ignore);
 	}
-    @RequestMapping(value = "/predictRestOfTheMonth", method = RequestMethod.GET)
-    public PredictedReport predictRestOfMonth() {
-
+    @RequestMapping(value = "/predictNextMonth", method = RequestMethod.GET)
+    public PredictedReport predictNextMonth() {
         return transactionsService.predictRestOfTheMonth(configProperties.getUserId());
-
     }
 
 }
